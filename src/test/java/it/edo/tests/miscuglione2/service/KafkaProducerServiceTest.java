@@ -14,9 +14,9 @@ class KafkaProducerServiceTest {
     KafkaProducerService kafkaProducerService;
 
     @Test
-    public void testSend() {
+    public void testSendMessage() {
         Book book = new Book();
-        book.setTitle("EDOARDONE3");
+        book.setTitle("EDOARDONE4");
         book.setId(-1L);
         kafkaProducerService.sendMessage(book);
     }

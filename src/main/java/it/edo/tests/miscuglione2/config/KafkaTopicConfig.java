@@ -13,8 +13,8 @@ import java.util.HashMap;
 @Configuration
 public class KafkaTopicConfig {
 
-    //@Value(value = "${kafka.bootstrapAddress}")
-    private String bootstrapAddress = "127.0.0.1:9092";
+    @Value("${spring.kafka.host}")
+    private String bootstrapAddress;
 
     @Bean
     public KafkaAdmin kafkaAdmin() {

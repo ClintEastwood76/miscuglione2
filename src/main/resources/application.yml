@@ -7,6 +7,9 @@ spring:
     database: mysql
     hibernate:
       ddl-auto: update
+  kafka:
+    host: localhost:9092
+    groupId: foo
 
 server:
   port: 8081
