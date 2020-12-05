@@ -1,9 +1,12 @@
 spring:
   datasource:
-    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/miscuglione_db
+    url: jdbc:mysql://${MYSQL_HOST:localhost}:3306/miscuglione
     username: miscuglione
     password: miscuglione
   jpa:
     database: mysql
     hibernate:
       ddl-auto: update
+
+server:
+  port: 8081
