@@ -14,7 +14,7 @@ import java.util.HashMap;
 public class KafkaTopicConfig {
 
     //@Value(value = "${kafka.bootstrapAddress}")
-    private String bootstrapAddress = "localhost:9092";
+    private String bootstrapAddress = "127.0.0.1:9092";
 
     @Bean
     public KafkaAdmin kafkaAdmin() {
