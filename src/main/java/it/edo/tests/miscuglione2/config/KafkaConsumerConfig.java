@@ -3,6 +3,7 @@ package it.edo.tests.miscuglione2.config;
 import it.edo.tests.miscuglione2.model.Book;
 import org.apache.kafka.clients.consumer.ConsumerConfig;
 import org.apache.kafka.common.serialization.StringDeserializer;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.kafka.annotation.EnableKafka;
@@ -18,8 +19,11 @@ import java.util.HashMap;
 @Configuration
 public class KafkaConsumerConfig {
 
-    private String bootstrapAddress = "localhost:9092";
-    private String groupId = "foo";
+    @Value("${spring.kafka.host}")
+    private String bootstrapAddress;
+
+    @Value("${spring.kafka.groupId}")
+    private String groupId;
 
     @Bean
     public ConsumerFactory<String, Book> bookConsumerFactory() {
