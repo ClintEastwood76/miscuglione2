@@ -13,13 +13,8 @@ public class BookListener {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
-    @Autowired
-    BookService bookService;
-
     @KafkaListener(topics = "test-topic", groupId = "foo")
     public void listenGroupFoo(Book book) {
         logger.info("Received Book in group foo: {}", book);
-        long id = bookService.saveBook(book);
-        logger.info("saved book with id {}", id);
     }
 }
