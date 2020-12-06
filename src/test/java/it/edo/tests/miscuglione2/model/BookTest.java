@@ -9,9 +9,9 @@ class BookTest {
     @Test
     public void test() {
         Book book = new Book();
-        book.setId(0l);
-        book.setTitle("Ciao");
-        assertSame(0l, book.getId());
+        book.setId(0L);
+        book.setTitle("Ciaone");
+        assertSame(0L, book.getId());
         assertSame("Ciao", book.getTitle());
     }
 }
