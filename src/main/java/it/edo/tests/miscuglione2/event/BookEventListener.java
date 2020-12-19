@@ -15,7 +15,7 @@ public class BookEventListener implements ApplicationListener<BookEvent> {
 
     @Override
     public void onApplicationEvent(BookEvent bookEvent) {
-        log.info("published a a book with info {}", bookEvent.toString());
-        kafkaProducerService.sendMessage(bookEvent.getBook());
+        log.info("BookEventListener: published a a book with info {}", bookEvent.toString());
+        // kafkaProducerService.sendMessage(bookEvent.getBook());
     }
 }

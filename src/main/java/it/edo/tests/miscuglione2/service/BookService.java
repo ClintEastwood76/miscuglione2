@@ -26,13 +26,12 @@ public class BookService {
     BookEventPublisher bookEventPublisher;
 
     public Long saveBook(Book book) {
-        log.info("saving {}", book.getTitle());
+        log.info("BookService: saving {}", book.getTitle());
         Optional<Book> bookOptional = bookRepository.findByTitle(book.getTitle());
         if (bookOptional.isPresent()) {
             throw new HibernateException("Book already exists...");
         }
         book = bookRepository.save(book);
-        //
         bookEventPublisher.publishBookEvent(book);
         return book.getId();
     }

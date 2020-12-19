@@ -27,10 +27,9 @@ public class BookController {
     }
 
     @ResponseBody
-    @PostMapping("/saveAndPublishAsync")
+    @PostMapping("/saveAndPublish")
     public String saveAndPublish(@RequestBody Book book) {
-        Future<Long> future = bookService.asyncSaveBook(book);
-        return future.toString();
+        return bookService.saveBook(book).toString();
     }
 
 }
