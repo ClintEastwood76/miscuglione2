@@ -1,5 +1,6 @@
 package it.edo.tests.miscuglione2.service;
 
+import it.edo.tests.miscuglione2.event.BookEventPublisher;
 import it.edo.tests.miscuglione2.model.Book;
 import it.edo.tests.miscuglione2.reposotory.BookRepository;
 import lombok.extern.java.Log;
@@ -22,24 +23,27 @@ public class BookService {
     BookRepository bookRepository;
 
     @Autowired
-    KafkaProducerService kafkaProducerService;
+    BookEventPublisher bookEventPublisher;
 
-    public Long saveBook(Book book) {
-        log.info("saving {}", book.getTitle());
+    public Book saveBook(Book book) {
+        log.info("BookService: saving {}", book.getTitle());
         Optional<Book> bookOptional = bookRepository.findByTitle(book.getTitle());
         if (bookOptional.isPresent()) {
             throw new HibernateException("Book already exists...");
         }
+        log.debug("saving book");
         book = bookRepository.save(book);
-        kafkaProducerService.sendMessage(book);
-        return book.getId();
+        log.debug("publishing book");
+        bookEventPublisher.publishBookEvent(book);
+        return book;
     }
 
     @Async
-    public Future<Long> asyncSaveBook(Book book) {
+    public Future<Book> asyncSaveBook(Book book) {
         try {
             Thread.sleep(10000L);
-            return new AsyncResult<Long>(saveBook(book));
+
+            return new AsyncResult<>(saveBook(book));
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }
