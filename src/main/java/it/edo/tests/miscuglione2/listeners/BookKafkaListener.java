@@ -9,7 +9,7 @@ import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookListener {
+public class BookKafkaListener {
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 

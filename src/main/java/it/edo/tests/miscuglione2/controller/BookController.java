@@ -19,9 +19,15 @@ public class BookController {
     BookService bookService;
 
     @ResponseBody
-    @PostMapping("/saveAndPublish")
-    public String saveAndPublish(@RequestBody Book book) {
+    @PostMapping("/saveAndPublishAsync")
+    public String saveAndPublishAsync(@RequestBody Book book) {
         Future<Long> future = bookService.asyncSaveBook(book);
         return future.toString();
+    }
+
+    @ResponseBody
+    @PostMapping("/saveAndPublish")
+    public String saveAndPublish(@RequestBody Book book) {
+        return bookService.saveBook(book).toString();
     }
 }

@@ -1,5 +1,6 @@
 package it.edo.tests.miscuglione2.service;
 
+import it.edo.tests.miscuglione2.event.BookEventPublisher;
 import it.edo.tests.miscuglione2.model.Book;
 import it.edo.tests.miscuglione2.reposotory.BookRepository;
 import lombok.extern.java.Log;
@@ -22,6 +23,9 @@ public class BookService {
     BookRepository bookRepository;
 
     @Autowired
+    BookEventPublisher bookEventPublisher;
+
+    @Autowired
     KafkaProducerService kafkaProducerService;
 
     public Long saveBook(Book book) {
@@ -31,7 +35,8 @@ public class BookService {
             throw new HibernateException("Book already exists...");
         }
         book = bookRepository.save(book);
-        kafkaProducerService.sendMessage(book);
+        // kafkaProducerService.sendMessage(book);
+        bookEventPublisher.publishBookEvent(book);
         return book.getId();
     }
 
