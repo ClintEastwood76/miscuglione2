@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>it.edo.tests</groupId>
 	<artifactId>miscuglione2</artifactId>
-	<version>0.0.5-SNAPSHOT</version>
+	<version>0.0.5</version>
 	<name>miscuglione2</name>
 	<description>il grande miscuglione 2</description>
 
