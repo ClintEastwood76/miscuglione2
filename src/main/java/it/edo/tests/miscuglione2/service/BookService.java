@@ -25,9 +25,6 @@ public class BookService {
     @Autowired
     BookEventPublisher bookEventPublisher;
 
-    @Autowired
-    KafkaProducerService kafkaProducerService;
-
     public Long saveBook(Book book) {
         log.info("saving {}", book.getTitle());
         Optional<Book> bookOptional = bookRepository.findByTitle(book.getTitle());
@@ -35,7 +32,7 @@ public class BookService {
             throw new HibernateException("Book already exists...");
         }
         book = bookRepository.save(book);
-        // kafkaProducerService.sendMessage(book);
+        //
         bookEventPublisher.publishBookEvent(book);
         return book.getId();
     }
@@ -44,7 +41,7 @@ public class BookService {
     public Future<Long> asyncSaveBook(Book book) {
         try {
             Thread.sleep(10000L);
-            return new AsyncResult<Long>(saveBook(book));
+            return new AsyncResult<>(saveBook(book));
         } catch (InterruptedException e) {
             log.error(e.getMessage());
         }
