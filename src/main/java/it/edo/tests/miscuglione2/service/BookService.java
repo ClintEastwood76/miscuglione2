@@ -25,21 +25,24 @@ public class BookService {
     @Autowired
     BookEventPublisher bookEventPublisher;
 
-    public Long saveBook(Book book) {
+    public Book saveBook(Book book) {
         log.info("BookService: saving {}", book.getTitle());
         Optional<Book> bookOptional = bookRepository.findByTitle(book.getTitle());
         if (bookOptional.isPresent()) {
             throw new HibernateException("Book already exists...");
         }
+        log.debug("saving book");
         book = bookRepository.save(book);
+        log.debug("publishing book");
         bookEventPublisher.publishBookEvent(book);
-        return book.getId();
+        return book;
     }
 
     @Async
-    public Future<Long> asyncSaveBook(Book book) {
+    public Future<Book> asyncSaveBook(Book book) {
         try {
             Thread.sleep(10000L);
+
             return new AsyncResult<>(saveBook(book));
         } catch (InterruptedException e) {
             log.error(e.getMessage());

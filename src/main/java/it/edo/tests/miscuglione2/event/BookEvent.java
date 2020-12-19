@@ -4,13 +4,12 @@ import it.edo.tests.miscuglione2.model.Book;
 import lombok.Getter;
 import org.springframework.context.ApplicationEvent;
 
-public class BookEvent extends ApplicationEvent {
+public class BookEvent {
 
     @Getter
     Book book;
 
-    public BookEvent(Object source, Book book) {
-        super(source);
+    public BookEvent(Book book) {
         this.book = book;
     }
 }

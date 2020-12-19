@@ -15,7 +15,7 @@ public class BookEventPublisher {
 
     public void publishBookEvent(final Book book) {
         log.info("BookEventPublisher: Publishing a book {}", book);
-        BookEvent bookEvent = new BookEvent(this, book);
+        BookEvent bookEvent = new BookEvent(book);
         applicationEventPublisher.publishEvent(bookEvent);
     }
 }
