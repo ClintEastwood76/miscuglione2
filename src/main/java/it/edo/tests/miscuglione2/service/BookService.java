@@ -33,7 +33,7 @@ public class BookService {
         }
         log.debug("saving book");
         book = bookRepository.save(book);
-        log.debug("publishing book");
+        log.debug("publishing book {}", book);
         bookEventPublisher.publishBookEvent(book);
         return book;
     }
